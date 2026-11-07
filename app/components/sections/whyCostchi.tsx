@@ -30,10 +30,7 @@ const vars = cv({
   "--pb": u(253.53),
 });
 
-/**
- * آیکون با انیمیشن چندمرحله‌ای؛ هر آیکون جدا، وقتی خودش به دید برسد
- * یک‌بار اجرا می‌شود و بعد سر جایش ثابت می‌ماند.
- */
+
 function AnimatedIcon({ Icon }: { Icon: LucideIcon }) {
   const viewport = { once: true, amount: 0.8 } as const;
 
@@ -50,7 +47,6 @@ function AnimatedIcon({ Icon }: { Icon: LucideIcon }) {
         transition={{ type: "spring", stiffness: 160, damping: 14, delay: 0.1 }}
       />
 
-      {/* حلقه‌ی پخش‌شونده: یک بار پخش می‌شود و محو می‌شود */}
       <motion.span
         aria-hidden
         className="absolute inset-0 rounded-full border-2 border-brand-alt"
@@ -60,7 +56,7 @@ function AnimatedIcon({ Icon }: { Icon: LucideIcon }) {
         transition={{ duration: 1.1, ease: "easeOut", delay: 0.35 }}
       />
 
-      {/* خود آیکون: پرش + چرخش + لرزش نرم تا آرام شدن */}
+      
       <motion.span
         className="relative block"
         initial={{ opacity: 0, scale: 0, rotate: -60, y: 20 }}

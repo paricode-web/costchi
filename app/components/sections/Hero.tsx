@@ -19,7 +19,7 @@ export default function Hero() {
       style={cv({ "--hero-h": u(2312), "--page-w": u(6084.65) })}
     >
       <div className="relative mx-auto flex w-full max-w-xl flex-col items-center gap-8 px-6 xl:block xl:h-[var(--hero-h)] xl:w-[var(--page-w)] xl:max-w-none xl:px-0">
-        {/* متن (بدون موشن) */}
+       
         <div
           className={`w-full text-center xl:text-right ${POS}`}
           style={at(3915, 224, 1555, 1334.86)}
@@ -49,7 +49,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* دکمه‌ها (بدون موشن) */}
+        
         <div className="flex flex-wrap justify-center gap-3 xl:contents">
           <div className={POS} style={at(4859.68, 1866, 602.54, 200.32)}>
             <Link
