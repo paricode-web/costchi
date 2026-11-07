@@ -1,6 +1,7 @@
-
 import { Check } from "lucide-react";
-import Image from "next/image";
+import Reveal from "../Reveal";
+import CostChart from "./CostChart";
+import { cv, u } from "@/lib/figma"
 
 const features = [
   "انتخاب مواد اولیه از کاتالوگ استاندارد",
@@ -10,64 +11,87 @@ const features = [
   "تاریخچه‌ی ۳۰ روزه‌ی قیمت",
 ];
 
+const vars = cv({
+  "--pt": u(366.12), "--pb": u(53.39),
+  "--hw": u(2494), "--hfs": u(99.1061), "--hlh": u(173),
+  "--cmt": u(86),
+  "--card-w": u(3292.97), "--card-h": u(1392),
+  "--card-pl": u(276.24), "--card-pr": u(238.24),
+  "--win-mt": u(56.85), "--col-mt": u(94.15), "--col-w": u(1184.28),
+});
+
 export default function ProductShowcase() {
   return (
-    <section id="features" className="scroll-mt-20 py-16 md:py-24">
-      <div className="mx-auto max-w-6xl px-8">
-        <h2 className="mx-auto max-w-2xl text-center text-2xl font-bold leading-relaxed text-ink md:text-3xl md:leading-relaxed">
-          قیمت تمام‌شده‌ی هر محصول را با مواد اولیه استاندارد محاسبه کنید و با
-          نرخ بازار مقایسه کنید.
-        </h2>
+    <section
+      id="features"
+      className="scroll-mt-20 overflow-hidden bg-surface py-16 xl:pb-[var(--pb)] xl:pt-[var(--pt)]"
+      style={vars}
+    >
+      <div className="mx-auto max-w-6xl px-8 xl:max-w-none xl:px-0">
+        <Reveal>
+          <h2 className="mx-auto max-w-2xl text-center text-2xl font-bold leading-relaxed text-ink/[.69] md:text-3xl md:leading-relaxed xl:max-w-[var(--hw)] xl:text-[length:var(--hfs)] xl:leading-[var(--hlh)]">
+            قیمت تمام‌شده‌ی هر محصول را با مواد اولیه استاندارد محاسبه کنید و با
+            نرخ بازار مقایسه کنید.
+          </h2>
+        </Reveal>
 
-        <div className="mt-12 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* متن و ویژگی‌ها */}
-          <div>
-            <h3 className="text-xl font-bold text-ink">
-              محاسبه‌ی قیمت تمام‌شده
-            </h3>
-
-            <p className="mt-3 leading-8 text-ink-soft">
-              با وارد کردن مواد اولیه از کاتالوگ جامع ۵۰۰+ قلمی، قیمت تمام‌شده‌ی
-              هر محصول را در لحظه محاسبه کنید و با نرخ بازار مقایسه کنید.
-            </p>
-
-            <ul className="mt-6 space-y-3">
-              {features.map((f) => (
-                <li key={f} className="flex items-center gap-3 text-ink">
-                  <Check size={18} className="shrink-0 text-profit" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* عکس نمودار */}
-          <div className="relative mx-auto w-full max-w-lg">
-            <Image
-              src="/images/chart.png"
-              alt="پیش‌نمایش محاسبه‌ی قیمت تمام‌شده در کاستچی"
-              width={800}
-              height={600}
-              sizes="(min-width: 1024px) 512px, 90vw"
-              className="h-auto w-full"
-            />
-
-<div className="absolute bottom-0 right-0 flex items-center gap-2.5 rounded-xl bg-surface px-3.5 py-2.5 shadow-md sm:-right-4">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-profit text-lg font-bold text-white">
-                ↓
+        <Reveal className="mx-auto mt-12 w-full max-w-[823px] xl:mt-[var(--cmt)] xl:w-[var(--card-w)] xl:max-w-none">
+          <div
+            className="box-border flex flex-col items-center gap-10 border-solid border-ink-soft bg-surface-muted px-5 py-8 xl:h-[var(--card-h)] xl:flex-row xl:items-start xl:justify-between xl:gap-0 xl:py-0 xl:pl-[var(--card-pl)] xl:pr-[var(--card-pr)]"
+            style={{ borderWidth: u(3.47626), borderRadius: u(41.7151) }}
+          >
+            {/* متن (راست) */}
+            <div className="w-full xl:mt-[var(--col-mt)] xl:w-[var(--col-w)]">
+              <span
+                className="flex items-center justify-center bg-profit"
+                style={{ width: u(172.62), height: u(172.62), borderRadius: u(47.0787) }}
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden style={{ width: u(94.16), height: u(94.16) }}>
+                  <circle cx="12" cy="12" r="9" fill="#FEFEFE" stroke="#4C8948" strokeWidth="1.8" />
+                  <polyline points="12 6 12 12 16 14" stroke="#4C8948" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </span>
 
-              <div className="leading-tight">
-                <p className="text-xs font-medium text-profit">
-                  صرفه‌جویی
-                </p>
-                <p className="text-base font-bold text-ink">
-                  ۱۲٪ هزینه
-                </p>
-              </div>
+              <h3
+                className="font-bold text-ink"
+                style={{ marginTop: u(62.77), fontSize: u(70.618), lineHeight: u(102) }}
+              >
+                محاسبه‌ی قیمت تمام‌شده
+              </h3>
+
+              <p
+                className="text-ink"
+                style={{ marginTop: u(27.47), fontSize: u(54.9251), lineHeight: u(84.35) }}
+              >
+                با وارد کردن مواد اولیه از کاتالوگ جامع ۵۰۰+ قلمی، قیمت
+                تمام‌شده‌ی هر محصول را در لحظه محاسبه کنید و با نرخ بازار مقایسه
+                کنید.
+              </p>
+
+              <ul className="flex flex-col" style={{ marginTop: u(64.9), gap: u(35.64) }}>
+                {features.map((f) => (
+                  <li
+                    key={f}
+                    className="flex items-center text-ink"
+                    style={{ height: u(74.54), gap: u(29.92), fontSize: u(54.9251) }}
+                  >
+                    <Check
+                      strokeWidth={3}
+                      className="shrink-0 text-profit"
+                      style={{ width: u(54.93), height: u(54.93) }}
+                    />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* چارت (چپ) */}
+            <div className="xl:mt-[var(--win-mt)]">
+              <CostChart />
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -11,10 +11,24 @@
   --color-surface: #fefefe;
   --color-surface-muted: #f5f5f5;
   --font-sans: var(--font-shabnam), sans-serif;
+
+   --color-brand-alt: #1d5fd8;   
+  --color-card-bg: #f7f9ff;
+  --color-line-soft: #dde3f5;
+  --color-muted-blue: #7d8fb8;  
 }
 
 body {
   background: var(--color-surface);
   color: var(--color-ink);
   font-family: var(--font-sans);
+}
+@font-face {
+  font-family: "Shabnam FD WOL";
+  src: url("/fonts/Shabnam-FD-WOL.woff2") format("woff2");
+  font-display: swap;
+}
+:root { --s: 0.25px; }
+@media (min-width: 1280px) {
+  :root { --s: min(0.3px, calc(100vw / 6084.65)); }
 }
