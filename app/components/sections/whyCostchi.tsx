@@ -1,10 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
 import {
-  BadgePercent, Gift, Lightbulb, ListChecks, TrendingUp, Truck,
+  BadgePercent,
+  Gift,
+  Lightbulb,
+  ListChecks,
+  TrendingUp,
+  Truck,
+  type LucideIcon,
 } from "lucide-react";
-import { fadeUp } from  "@/lib/motion"
-import { cv, u } from  "@/lib/figma"
+import { cv, u } from "@/lib/figma";
 
 const items = [
   { icon: Truck, title: "معرفی منابع تأمین‌کننده", text: "تأمین‌کنندگان مواد اولیه با بهترین قیمت را بشناسید." },
@@ -25,6 +30,62 @@ const vars = cv({
   "--pb": u(253.53),
 });
 
+/**
+ * آیکون با انیمیشن چندمرحله‌ای؛ هر آیکون جدا، وقتی خودش به دید برسد
+ * یک‌بار اجرا می‌شود و بعد سر جایش ثابت می‌ماند.
+ */
+function AnimatedIcon({ Icon }: { Icon: LucideIcon }) {
+  const viewport = { once: true, amount: 0.8 } as const;
+
+  return (
+    <span className="relative shrink-0 text-brand-alt xl:absolute xl:right-[var(--ir)] xl:top-[var(--it)]">
+      {/* دایره‌ی پس‌زمینه: باز می‌شود و می‌ماند */}
+      <motion.span
+        aria-hidden
+        className="absolute rounded-full bg-brand-alt/10"
+        style={{ inset: u(-22) }}
+        initial={{ scale: 0, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={viewport}
+        transition={{ type: "spring", stiffness: 160, damping: 14, delay: 0.1 }}
+      />
+
+      {/* حلقه‌ی پخش‌شونده: یک بار پخش می‌شود و محو می‌شود */}
+      <motion.span
+        aria-hidden
+        className="absolute inset-0 rounded-full border-2 border-brand-alt"
+        initial={{ opacity: 0, scale: 0.6 }}
+        whileInView={{ opacity: [0, 0.6, 0], scale: [0.6, 1.8, 2.4] }}
+        viewport={viewport}
+        transition={{ duration: 1.1, ease: "easeOut", delay: 0.35 }}
+      />
+
+      {/* خود آیکون: پرش + چرخش + لرزش نرم تا آرام شدن */}
+      <motion.span
+        className="relative block"
+        initial={{ opacity: 0, scale: 0, rotate: -60, y: 20 }}
+        whileInView={{
+          opacity: 1,
+          scale: [0, 1.35, 0.9, 1.08, 1],
+          rotate: [-60, 20, -10, 4, 0],
+          y: [20, -12, 0, -3, 0],
+        }}
+        viewport={viewport}
+        transition={{
+          duration: 1.1,
+          ease: "easeOut",
+          times: [0, 0.4, 0.65, 0.85, 1],
+        }}
+      >
+        <Icon
+          strokeWidth={2}
+          className="h-7 w-7 xl:h-[var(--is)] xl:w-[var(--is)]"
+        />
+      </motion.span>
+    </span>
+  );
+}
+
 export default function WhyCostchi() {
   return (
     <section
@@ -32,34 +93,18 @@ export default function WhyCostchi() {
       className="scroll-mt-24 overflow-hidden bg-surface py-12 xl:pb-[var(--pb)] xl:pt-0"
       style={vars}
     >
-      <motion.h2
-        variants={fadeUp} initial="hidden" whileInView="show"
-        viewport={{ once: true, amount: 0.5 }}
-        className="text-center text-3xl font-bold text-brand xl:mt-[var(--h2m)] xl:flex xl:h-[var(--h2h)] xl:items-center xl:justify-center xl:text-[length:var(--h2)] xl:leading-[var(--h2l)]"
-      >
+      <h2 className="text-center text-3xl font-bold text-brand xl:mt-[var(--h2m)] xl:flex xl:h-[var(--h2h)] xl:items-center xl:justify-center xl:text-[length:var(--h2)] xl:leading-[var(--h2l)]">
         چرا کاستچی؟
-      </motion.h2>
+      </h2>
 
       <ul className="mx-auto mt-8 grid w-full max-w-md gap-4 px-6 sm:max-w-3xl sm:grid-cols-2 xl:mt-[var(--gm)] xl:w-[var(--gw)] xl:max-w-none xl:grid-cols-3 xl:gap-[var(--gap)] xl:px-0">
-        {items.map(({ icon: Icon, title, text }, i) => (
-          <motion.li
+        {items.map(({ icon, title, text }) => (
+          <li
             key={title}
-            variants={fadeUp} custom={i % 3}
-            initial="hidden" whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
             className="relative flex items-start gap-4 border-solid border-line-soft bg-card-bg p-5 xl:block xl:h-[var(--ch)] xl:p-0"
             style={{ borderWidth: u(3.16909), borderRadius: u(38.0291) }}
           >
-            {/* موشن یک‌باره آیکون */}
-            <motion.span
-              initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.2 + (i % 3) * 0.1 }}
-              className="shrink-0 text-brand-alt xl:absolute xl:right-[var(--ir)] xl:top-[var(--it)]"
-            >
-              <Icon strokeWidth={2} className="h-7 w-7 xl:h-[var(--is)] xl:w-[var(--is)]" />
-            </motion.span>
+            <AnimatedIcon Icon={icon} />
 
             <div className="text-right xl:absolute xl:right-[var(--tr)] xl:top-[var(--tt)] xl:w-[var(--tw)]">
               <h3 className="font-bold text-ink xl:text-[length:var(--h3)] xl:leading-[var(--h3l)]">
@@ -69,7 +114,7 @@ export default function WhyCostchi() {
                 {text}
               </p>
             </div>
-          </motion.li>
+          </li>
         ))}
       </ul>
     </section>
